@@ -2,50 +2,39 @@ version: '3.8'
 
 services:
   # Service de l'API Flask
-  service_api:
+  backend:
     build: ./backend
     ports:
-      - "5052:5000"
+      - "5000:5000"
     depends_on:
-      - service_bd
+      - mariadb
     environment:
       - FLASK_APP=app.py
       - FLASK_RUN_HOST=0.0.0.0
-      - MYSQL_HOST=service_bd
+      - MYSQL_HOST=mariadb
       - MYSQL_USER=Uroot_edcp
       - MYSQL_PASSWORD=e.dcp@2023#
       - MYSQL_DB=edcp_db
-    networks:
-      - mynetwork_backend
-      - mynetwork
 
   # Service de la base de données MariaDB
-  service_bd:
+  mariadb:
     image: mariadb:10.4
-    ports:
-      - "3356:3306"
     environment:
       - MYSQL_ROOT_PASSWORD=e.dcp@2023#
       - MYSQL_DATABASE=edcp_db
+      - MYSQL_USER=admin
+      - MYSQL_PASSWORD=admin
     volumes:
-      - mariadb_data:/var/lib/mysql
-    networks:
-      - mynetwork_backend
+      - ./mariadb_data:/var/lib/mysql
 
   # Service de la vue Apache
-  service_vue:
+  frontend:
     build: ./frontend
     ports:
-      - "8080:80"
+      - "8081:80"
     volumes:
       - ./site:/var/www/html
-    networks:
-      - mynetwork
-      # - mynetwork_backend
 
 volumes:
   mariadb_data:
 
-networks:
-  mynetwork_backend:
-  mynetwork:
