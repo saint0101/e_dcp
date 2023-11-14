@@ -35,6 +35,6 @@ services:
     volumes:
       - ./site:/var/www/html
 
-volumes:
-  mariadb_data:
+# volumes:
+#  mariadb_data:
 
