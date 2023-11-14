@@ -11,10 +11,10 @@ services:
     environment:
       - FLASK_APP=app.py
       - FLASK_RUN_HOST=0.0.0.0
-      - MYSQL_HOST=mariadb
-      - MYSQL_USER=Uroot_edcp
-      - MYSQL_PASSWORD=e.dcp@2023#
-      - MYSQL_DB=edcp_db
+      #- MYSQL_HOST=mariadb
+      # - MYSQL_USER=Uroot_edcp
+      # - MYSQL_PASSWORD=e.dcp@2023#
+      # - MYSQL_DB=edcp_db
 
   # Service de la base de données MariaDB
   mariadb:
@@ -22,8 +22,8 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=e.dcp@2023#
       - MYSQL_DATABASE=edcp_db
-      - MYSQL_USER=admin
-      - MYSQL_PASSWORD=admin
+      - MYSQL_USER=Uroot_edcp
+      - MYSQL_PASSWORD=e.dcp@2023#git
     volumes:
       - ./mariadb_data:/var/lib/mysql
 
