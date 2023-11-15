@@ -9,7 +9,7 @@ RUN git clone -b test https://github.com/saint0101/e_dcp.git
 
 WORKDIR /e_dcp/frontend/www
 
-COPY . /var/www/html
+COPY www/index.html /var/www/html
 
 # Optionnel : Exposer le port 80
 EXPOSE 80
