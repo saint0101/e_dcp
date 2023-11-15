@@ -7,7 +7,7 @@ RUN apt-get update && apt-get install -y git
 # Cloner le dépôt GitHub contenant le site de test
 RUN git clone -b test https://github.com/saint0101/e_dcp.git
 
-WORKDIR /e_dcpf/frontend/www
+WORKDIR /e_dcp/frontend/www
 
 COPY . /var/www/html
 
