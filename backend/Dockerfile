@@ -9,7 +9,7 @@ RUN git clone -b test https://github.com/saint0101/e_dcp.git
 # Copy the current directory contents into the container at /app
 COPY . /app
 
-WORKDIR /app/e_dcpf/backend
+WORKDIR /app/e_dcp/backend
 
 # Install any needed packages specified in requirements.txt
 RUN pip install --trusted-host pypi.python.org -r requirements.txt
@@ -22,7 +22,7 @@ ENV NAME World
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-WORKDIR /app/e_dcpf/backend/app/
+WORKDIR /app/e_dcp/backend/app/
 
 RUN ls .
 
