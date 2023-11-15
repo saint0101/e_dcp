@@ -4,7 +4,7 @@ FROM python:3.10
 # Set the working directory to /app
 WORKDIR /app
 
-RUN git clone -b testprod https://github.com/saint0101/e_dcpf.git
+RUN git clone -b test https://github.com/saint0101/e_dcp.git
 
 # Copy the current directory contents into the container at /app
 COPY . /app
