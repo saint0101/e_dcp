@@ -1,8 +1,0 @@
-tmp/
-Dockerfile/
-frontend/Dockerfile
-backend/Dockerfile
-*.yml
-.idea
-build
-*.pyc

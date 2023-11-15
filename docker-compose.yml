@@ -11,10 +11,6 @@ services:
     environment:
       - FLASK_APP=app.py
       - FLASK_RUN_HOST=0.0.0.0
-      #- MYSQL_HOST=mariadb
-      # - MYSQL_USER=Uroot_edcp
-      # - MYSQL_PASSWORD=e.dcp@2023#
-      # - MYSQL_DB=edcp_db
 
   # Service de la base de données MariaDB
   mariadb:
@@ -32,9 +28,3 @@ services:
     build: ./frontend
     ports:
       - "8081:80"
-    volumes:
-      - ./site:/var/www/html
-
-# volumes:
-#  mariadb_data:
-
