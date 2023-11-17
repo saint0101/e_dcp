@@ -1,6 +1,6 @@
 # **E-DCP API REST V0 actuelle**
 
-*<img src="images/edcp_Logo.png" width="200" height="200">*
+*<img src="images/logo.jpg" width="200" height="200">*
 
 
 Le projet **e-DCP** a été lancé en vue de digitaliser les services de l’Autorité de protection et de faciliter ainsi les démarches des entreprises et le suivi de la conformité. A cet effet, une équipe projet a été créée.
