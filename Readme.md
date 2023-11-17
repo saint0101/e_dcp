@@ -1,6 +1,6 @@
 # **E-DCP API REST V0 actuelle**
 
-*<img src="images/edcp_Logo.png" width="200" height="200">*
+*<img src="backend/images/edcp_Logo.png" width="200" height="200">*
 
 
 Le projet **e-DCP** a été lancé en vue de digitaliser les services de l’Autorité de protection et de faciliter ainsi les démarches des entreprises et le suivi de la conformité. A cet effet, une équipe projet a été créée.
@@ -10,7 +10,7 @@ Cette application est architecturée en **3 tiers** .
 ## l'architecture se présente comme suit:
 
 <p align="center">
-  <img src="images/architecturetdocker.png">
+  <img src="backend/images/architecturetdocker.png">
 </p>
 
 ## Les référence de l'API REST
