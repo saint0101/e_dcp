@@ -398,6 +398,7 @@ def get_all_sousfinalite():
         return json.dumps({'error': str(e)})
 
 
+# app.run()
 port = int(os.environ.get('PORT', 5500))
 if __name__ == '__main__':
     app.run(debug=True, threaded=True, host='127.0.0.1', port=port)
