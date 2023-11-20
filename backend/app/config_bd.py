@@ -13,17 +13,25 @@ Config DB
 from flaskext.mysql import MySQL
 import logging
 
-from app import app
+from edcp import app
 
 # instance de Mysql (creation d'un objet de connexion Mysql)
 mysql = MySQL
 
 # parametre de connexion Mariadb db a la base de donnée local
-USER_NAME = app.config['MYSQL_DATABASE_USER'] = 'root'
-PASSWORD = app.config['MYSQL_DATABASE_PASSWORD'] = ''
-DB_NAME = app.config['MYSQL_DATABASE_DB'] = 'bd_dcp'
-RDS_HOST = app.config['MYSQL_DATABASE_HOST'] = 'localhost'
-RDS_PORT = app.config['MYSQL_DATABASE_PORT'] = 3306
+# USER_NAME = app.config['MYSQL_DATABASE_USER'] = 'root'
+# PASSWORD = app.config['MYSQL_DATABASE_PASSWORD'] = ''
+# DB_NAME = app.config['MYSQL_DATABASE_DB'] = 'bd_dcp'
+# RDS_HOST = app.config['MYSQL_DATABASE_HOST'] = 'localhost'
+# RDS_PORT = app.config['MYSQL_DATABASE_PORT'] = 3356
+
+
+# parametre de connexion Mariadb db a la base de donnée local
+USER_NAME = app.config['MYSQL_DATABASE_USER'] = 'Uroot_edcp'
+PASSWORD = app.config['MYSQL_DATABASE_PASSWORD'] = 'e.dcp@2023#'
+DB_NAME = app.config['MYSQL_DATABASE_DB'] = 'edcp_db'
+RDS_HOST = app.config['MYSQL_DATABASE_HOST'] = 'mariadb'
+RDS_PORT = app.config['MYSQL_DATABASE_PORT'] = 3356
 
 # instance logger
 logger = logging.getLogger()
@@ -37,8 +45,6 @@ config_local = {
     'password': PASSWORD,
     'database': DB_NAME
 }
-
-
 # serveur test
 # config = {
 #     'host': '172.18.0.3',
