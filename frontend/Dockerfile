@@ -1,8 +1,14 @@
-# Utiliser l'image officielle Apache
-FROM httpd:latest
+# Use the PHP with Apache image
+FROM php:7.4-apache
 
-# Copy index.html file into container
-# COPY testindex.html /usr/local/apache2/htdocs/index.html
+# Set the working directory to /var/www/html
+WORKDIR /e_dcpf/frontend/www
 
-# Copy all files into container
-COPY www/ /usr/local/apache2/htdocs/
+RUN ls .
+
+# Copy the index.html file into the container
+COPY . /var/www/html/
+
+# Expose port 80 for web traffic
+EXPOSE 80
+

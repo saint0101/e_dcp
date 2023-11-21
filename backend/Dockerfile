@@ -16,7 +16,5 @@ RUN pip install --trusted-host pypi.python.org -r requirements.txt
 # Make port 5000 available to the world outside this container
 EXPOSE 5000
 
-# WORKDIR app
 # Run app.py when the container launches
-CMD ["flask", "run", "--host", "0.0.0.0", "--port", "5055"]
-# CMD ["flask", "run", "--host", "0.0.0.0", "--port", "5000", "-e", "edcp:app"]
+CMD ["flask", "run", "--host", "0.0.0.0", "--port", "5000"]
