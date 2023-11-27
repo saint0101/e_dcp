@@ -1,5 +1,12 @@
 
 Documentation E-DCP ApiRest
+*<img src="images/logo.jpg" width="200" height="200">*
+
+## l'architecture se présente comme suit:
+
+<p align="center">
+  <img src="images/architecturetdocker.png">
+</p>
 
 ## Description
 
