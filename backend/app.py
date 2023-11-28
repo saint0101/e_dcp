@@ -359,11 +359,11 @@ def get_all_entreprises():
         return json.dumps({'error': str(e)})
 
 
-@app.route('/edcp/api/v0/sousfinalite', methods=['GET'])
+@app.route('/edcp/api/v0/sousfinalites', methods=['GET'])
 @jwt_required()
 def get_all_sousfinalite():
     """
-    lister les sousfinalite disponible
+    lister les sousfinalites disponible
     :return:
     """
     try:
