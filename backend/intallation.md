@@ -1,17 +1,18 @@
 
 
+
 API REST  E-DCP
 
 ## INSTALLATION API REST E-DCP EN LOCAL
 
 - Création de la base de données Mariadb
-	- Nom de la base de donnée : ex: bd_dcp
-	- paramètres de connexion à la base de donnée:
-	>	USER_NAME = app.config['MYSQL_DATABASE_USER'] = 'user_bd'
-	>	PASSWORD = app.config['MYSQL_DATABASE_PASSWORD'] = '' password_bd"
-	>	DB_NAME = app.config['MYSQL_DATABASE_DB'] = 'bd_name'
-	>	RDS_HOST = app.config['MYSQL_DATABASE_HOST'] = 'ip_host'
-	>	RDS_PORT = app.config['MYSQL_DATABASE_PORT'] = port_connexion
+   - Nom de la base de donnée : ex: bd_dcp
+   - paramètres de connexion à la base de donnée:
+	 >  	USER_NAME = app.config['MYSQL_DATABASE_USER'] = 'user_bd'
+	 > 		PASSWORD = app.config['MYSQL_DATABASE_PASSWORD'] = '' password_bd"
+	 >  	DB_NAME = app.config['MYSQL_DATABASE_DB'] = 'bd_name'
+	 >  	RDS_HOST = app.config['MYSQL_DATABASE_HOST'] = 'ip_host'
+	 >  	RDS_PORT = app.config['MYSQL_DATABASE_PORT'] = port_connexion
 
 - S'assurer que git est installer sur la machine, si non installer git
 lien d'installation de git : [https://git-scm.com/downloads](https://git-scm.com/downloads)
@@ -55,7 +56,7 @@ installer les dependances
 
 - lancer l'application
    >     python app.py
-
+  
 - Accéder à l'application dans le navigateur :
 
 Ouvrez votre navigateur et accédez à l'URL
