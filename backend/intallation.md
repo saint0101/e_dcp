@@ -56,7 +56,7 @@ installer les dependances
 
 - lancer l'application
    >     python app.py
-  
+
 - Accéder à l'application dans le navigateur :
 
 Ouvrez votre navigateur et accédez à l'URL

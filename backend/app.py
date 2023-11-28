@@ -56,7 +56,27 @@ def login():
 
     if user and check_password_hash(user[2], password):
         access_token = create_access_token(identity=user[0])
-        return jsonify(access_token=access_token), 200
+
+        # Formatter le numéro de téléphone
+        formatted_phone = "{}-{}-{}-{}-{}".format(user[10][:2], user[10][2:4], user[10][4:6], user[10][6:8],
+                                                  user[10][8:])
+
+        # Retourner le token et les informations de l'utilisateur
+        response = {
+            "access_token": access_token,
+            "user": {
+                "id": user[0],
+                "login": user[1],
+                "role_id": user[3],
+                "name": user[6],
+                "prenom": user[7],
+                "organisation": user[8],
+                "telephone": formatted_phone,
+                "fonction": user[11],
+                "created": user[5]
+            }
+        }
+        return jsonify(response), 200
     else:
         return jsonify({"msg": "Mauvais identifiant ou mot de passe"}), 401
 
@@ -77,8 +97,8 @@ def create_user():
             with conn.cursor() as cursor:
                 # Exécution de la requête SQL pour insérer un nouvel utilisateur
                 cursor.execute(
-                    "INSERT INTO users (login, passwd, role_id, avatar, created, nom, prenoms, Organisation, email, telephone, fonction, consentement) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);",
-                    (user_data['login'], generate_password_hash(user_data['passwd'], method='sha256'), user_data['role_id'], user_data['avatar'], user_data['created'], user_data['nom'], user_data['prenoms'],
+                    "INSERT INTO users (login, passwd, role_id, avatar, nom, prenoms, Organisation, email, telephone, fonction, consentement) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);",
+                    (user_data['login'], generate_password_hash(user_data['passwd'], method='sha256'), user_data['role_id'], user_data['avatar'], user_data['nom'], user_data['prenoms'],
                      user_data['Organisation'], user_data['email'], user_data['telephone'], user_data['fonction'], user_data['consentement'])
                 )
                 # Confirmer les modifications dans la base de données
@@ -124,7 +144,7 @@ def get_all_users():
         # Création de la réponse JSON
         response_data = {
             "status_code": 200,
-            "datas": [{
+            "data": [{
                 "id": row[0],
                 "login": row[1],
                 "role_id": row[3],
@@ -132,8 +152,7 @@ def get_all_users():
                 "prenom": row[7],
                 "organisation": row[8],
                 "telephone": row[10],
-                "fonction": row[11],
-                "dateCreation": row[5],
+                "fonction": row[11]
         }
         for row in rows_data]
 
@@ -172,7 +191,7 @@ def get_user_by_id(user_id):
         # Création de la réponse JSON
         response_data = {
             "status_code": 200,
-            "datas": [{
+            "data": [{
                 "id": row[0],
                 "login": row[2],
                 "role_id": row[3],
@@ -265,7 +284,7 @@ def get_all_roles():
         # Création de la réponse JSON
         response_data = {
             "status_code": 200,
-            "datas": [{
+            "data": [{
                 "id": row[0],
                 "role": row[1]
         }
@@ -286,7 +305,7 @@ def get_all_roles():
 
 
 @app.route('/edcp/api/v0/entreprises', methods=['GET'])
-@jwt_required()
+# @jwt_required()
 def get_all_entreprises():
     """
     lister les Entreprises disponible
@@ -308,7 +327,7 @@ def get_all_entreprises():
         # Création de la réponse JSON
         response_data = {
             "status_code": 200,
-            "datas": [{
+            "data": [{
                 "id": row[0],
                 "typeClient": row[1],
                 "nomRaisonSociale": row[2],
@@ -363,7 +382,7 @@ def get_all_sousfinalite():
         # Création de la réponse JSON
         response_data = {
             "status_code": 200,
-            "datas": [{
+            "data": [{
                 "id": row[0],
                 "label": row[1],
                 "sensible": row[2],

@@ -8,6 +8,23 @@ Documentation E-DCP ApiRest
   <img src="images/architecturetdocker.png">
 </p>
 
+### **Response codes**
+
+- ##### **Success**
+Code | Reason
+---- | ------
+`200 - Ok` | Request was successful (processing to recover the resource).
+`201 - Ok` | Request was successful (processing to create the resource).
+
+- ##### **Error**
+Code | Reason
+---- | ------
+`400 - Bad Request` | Some content in the request was invalid.
+`404 - Not Found` |	The requested resource could not be found.
+`424 - Not Found` |	The requested resource could not be processed.
+`500 - Internal server error` |	Internal server error.
+
+
 ## Description
 
 Bienvenue dans la documentation E-DCP ApiRest. Cette API fournit des services liés à la gestion des utilisateurs, à l'authentification, aux rôles, aux entreprises, etc.
