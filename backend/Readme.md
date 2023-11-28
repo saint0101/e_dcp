@@ -97,20 +97,20 @@ Créez un nouvel utilisateur.
 #### Demande
 -   Type de contenu : application/json jsonCopy code
 ```
-{
-	"login": "new_username",
-	"passwd": "new_password",
-	"role_id": 1,
-	"avatar": "avatar_url",
-	"created": "2023-11 -27",
-	"nom": "Nom de l'utilisateur",
-    "prenoms": "Prénom de l'utilisateur",
-    "Organisation": "Organisation de l'utilisateur",
-    "email": "user@example.com ",
-    "telephone": " 123456789",
-    "fonction": "Fonction utilisateur",
-    "consentement": true
- }
+    {
+        "login": "new_username",
+        "passwd": "new_password",
+        "role_id": 1,
+        "avatar": "avatar_url",
+        "created": "2023-11 -27",
+        "nom": "Nom de l'utilisateur",
+        "prenoms": "Prénom de l'utilisateur",
+        "Organisation": "Organisation de l'utilisateur",
+        "email": "user@example.com ",
+        "telephone": " 123456789",
+        "fonction": "Fonction utilisateur",
+        "consentement": true
+     }
    ```
 #### Réponse
 - ** 201 Créé **
