@@ -1,3 +1,6 @@
+#! /usr/bin/env python3.7
+# -*- encoding: utf-8 -*-
+
 # import the necessary packages
 import os
 import json
@@ -7,7 +10,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask import jsonify, request
 
 from backend.configs import config_local, app
-
+from backend.utils import format_telephone_number
 
 @app.route('/')
 @app.route('/edcp/api/v0/description')
@@ -21,6 +24,8 @@ def description_edcp_api():
         'version': 'v0',
         'Services': {
             'Liste des utilisateurs disponibles': '{base url}-{/edcp/api/v0/users}',
+            'Liste des personnes concernees': '{base url}-{/edcp/api/v0/personnes-concernees}',
+            'Liste des fondements': '{base url}-{/edcp/api/v0/fondements}',
             'Recher d\'utilisateur en fonction de l\' id': '{base url}-{/edcp/api/v0/users/<int:user_id>}',
             'Liste des rôles disponibles': '{base url}-{/edcp/api/v0/roles}',
             'Liste des Entreprises disponibles': '{base url}-{/edcp/api/v0/entreprises}',
@@ -68,12 +73,12 @@ def login():
                 "id": user[0],
                 "login": user[1],
                 "role_id": user[3],
-                "name": user[6],
+                "nom": user[6],
                 "prenom": user[7],
                 "organisation": user[8],
                 "telephone": formatted_phone,
                 "fonction": user[11],
-                "created": user[5]
+                "createdAt": user[5].strftime("%y-%m-%d"),
             }
         }
         return jsonify(response), 200
@@ -134,7 +139,15 @@ def get_all_users():
         cursor = conn.cursor()
 
         # execution de la requête SQL
-        cursor.execute("SELECT * FROM users ;")
+        # cursor.execute("SELECT * FROM users ;")   # Execution de la requête SQL avec jointure pour récupérer le rôle
+        cursor.execute("""
+            SELECT u.id, u.login, u.role_id, u.createdAt, u.nom, u.prenom,
+                   u.organisation, u.telephone, u.fonction, u.consentement,
+                   r.role
+            FROM users u
+            JOIN roles r ON u.role_id = r.id;
+        """)
+
         rows_data = cursor.fetchall()
 
         # Fermeture des ressources de la base de données
@@ -142,20 +155,21 @@ def get_all_users():
         conn.close()
 
         # Création de la réponse JSON
+        # "createdAt": row[3].strftime("%y-%m-%d-%H-%M"),  # Format the timestamp
         response_data = {
             "status_code": 200,
             "data": [{
                 "id": row[0],
                 "login": row[1],
-                "role_id": row[3],
-                "name": row[6],
-                "prenom": row[7],
-                "organisation": row[8],
-                "telephone": row[10],
-                "fonction": row[11]
-        }
-        for row in rows_data]
-
+                "createdAt": row[3].strftime("%y-%m-%d"),
+                "nom": row[4],
+                "prenom": row[5],
+                "organisation": row[6],
+                "telephone": format_telephone_number(row[7]),
+                "fonction": row[8],
+                "consentement": row[9],
+                "role": row[10]
+            } for row in rows_data]
         }
         return jsonify(response_data)
 
@@ -200,7 +214,7 @@ def get_user_by_id(user_id):
                 "organisation": row[8],
                 "telephone": row[10],
                 "fonction": row[11],
-                "dateCreation": row[5],
+                "createdAt": row[5],
         }
         for row in rows_data]
 
@@ -305,7 +319,7 @@ def get_all_roles():
 
 
 @app.route('/edcp/api/v0/entreprises', methods=['GET'])
-# @jwt_required()
+@jwt_required()
 def get_all_entreprises():
     """
     lister les Entreprises disponible
@@ -359,11 +373,11 @@ def get_all_entreprises():
         return json.dumps({'error': str(e)})
 
 
-@app.route('/edcp/api/v0/sousfinalites', methods=['GET'])
+@app.route('/edcp/api/v0/personnes-concernees', methods=['GET'])
 @jwt_required()
-def get_all_sousfinalite():
+def get_all_personnes_concernees():
     """
-    lister les sousfinalites disponible
+    lister les personnes concernees
     :return:
     """
     try:
@@ -372,7 +386,7 @@ def get_all_sousfinalite():
         cursor = conn.cursor()
 
         # execution de la requête SQL
-        cursor.execute("SELECT * FROM listesousfinalites ;")
+        cursor.execute("SELECT * FROM persconcernees ;")
         rows_data = cursor.fetchall()
 
         # Fermeture des ressources de la base de données
@@ -386,10 +400,7 @@ def get_all_sousfinalite():
                 "id": row[0],
                 "label": row[1],
                 "sensible": row[2],
-                "ordre": row[3],
-                "finalite": row[4],
-                "id_finalite": row[5]
-
+                "ordre": row[3]
             }
                 for row in rows_data]
         }
@@ -405,6 +416,116 @@ def get_all_sousfinalite():
 
     except Exception as e:
         return json.dumps({'error': str(e)})
+
+
+@app.route('/edcp/api/v0/fondements', methods=['GET'])
+@jwt_required()
+def get_all_fondements():
+    """
+    lister les fondements
+    :return:
+    """
+    try:
+        # connexion a la base de données
+        conn = mariadb.connect(**config_local)
+        cursor = conn.cursor()
+
+        # execution de la requête SQL
+        cursor.execute("SELECT * FROM fondjuridiques ;")
+        rows_data = cursor.fetchall()
+
+        # Fermeture des ressources de la base de données
+        cursor.close()
+        conn.close()
+
+        # Création de la réponse JSON
+        response_data = {
+            "status_code": 200,
+            "data": [{
+                "id": row[0],
+                "label": row[1],
+                "description": row[2],
+            }
+                for row in rows_data]
+        }
+        return jsonify(response_data)
+
+    except mariadb.Error as e:
+        # En cas d'erreur, retourner une réponse d'erreur
+        error_data = {
+            "status_code": 500,
+            "error": str(e)
+        }
+        return jsonify(error_data)
+
+    except Exception as e:
+        return json.dumps({'error': str(e)})
+
+
+@app.route('/edcp/api/v0/finalites', methods=['GET'])
+@jwt_required()
+def get_all_sousfinalite():
+    try:
+        # connexion à la base de données
+        conn = mariadb.connect(**config_local)
+        cursor = conn.cursor()
+
+        # execution de la requête SQL pour récupérer les finalités et sous-finalités
+        cursor.execute("SELECT * FROM finalites;")
+        finalites_data = cursor.fetchall()
+
+        cursor.execute("SELECT * FROM listesousfinalites;")
+        sous_finalites_data = cursor.fetchall()
+
+        # Fermeture des ressources de la base de données
+        cursor.close()
+        conn.close()
+
+        # Organiser les données en un dictionnaire pour faciliter la création de la réponse JSON
+        finalites_dict = {}
+        for row in finalites_data:
+            finalite_id = row[0]
+            finalites_dict[finalite_id] = {
+                "id": str(finalite_id),
+                "label": row[1],
+                "sensible": bool(row[2]),
+                "ordre": int(row[3]),
+                "sousFinalites": []
+            }
+
+        for row in sous_finalites_data:
+            sous_finalite_id = row[0]
+            finalite_id = row[5]
+
+            sous_finalite_info = {
+                "id": str(sous_finalite_id),
+                "label": row[1],
+                "sensible": bool(row[2]),
+                "ordre": int(row[3])
+            }
+            finalites_dict[finalite_id]["sousFinalites"].append(sous_finalite_info)
+        # Convertir le dictionnaire en une liste pour la réponse JSON
+        finalites_list = list(finalites_dict.values())
+
+        # Création de la réponse JSON
+        response_data = {
+            "status_code": 200,
+            "data": finalites_list
+        }
+
+        return jsonify(response_data)
+
+    except mariadb.Error as e:
+        # En cas d'erreur, retourner une réponse d'erreur
+        error_data = {
+            "status_code": 500,
+            "error": str(e)
+        }
+        return jsonify(error_data)
+
+    except Exception as e:
+        return json.dumps({'error': str(e)})
+
 
 
 # app.run()
