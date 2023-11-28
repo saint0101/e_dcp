@@ -464,7 +464,7 @@ def get_all_fondements():
 
 @app.route('/edcp/api/v0/finalites', methods=['GET'])
 @jwt_required()
-def get_all_sousfinalite():
+def get_all_finalite():
     try:
         # connexion à la base de données
         conn = mariadb.connect(**config_local)

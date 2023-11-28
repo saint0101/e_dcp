@@ -24,8 +24,8 @@
           <file leaf-file-name="app.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/backend/app.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-606">
-                  <caret line="37" column="36" lean-forward="true" selection-start-line="37" selection-start-column="36" selection-end-line="37" selection-end-column="36" />
+                <state relative-caret-position="448">
+                  <caret line="462" column="0" lean-forward="true" selection-start-line="462" selection-start-column="0" selection-end-line="462" selection-end-column="0" />
                   <folding>
                     <element signature="e#85#94#0" expanded="true" />
                     <element signature="e#499#1635#0" expanded="false" />
@@ -39,19 +39,19 @@
                     <element signature="e#10737#12195#0" expanded="false" />
                     <element signature="e#12319#13385#0" expanded="false" />
                     <element signature="e#13489#14516#0" expanded="false" />
-                    <element signature="e#14621#16580#0" expanded="false" />
-                    <marker date="1701189820048" expanded="true" signature="2147:2191" ph="SELECT * FRO... users" />
-                    <marker date="1701189820048" expanded="true" signature="3841:4002" ph="INSERT INTO users... " />
-                    <marker date="1701189820048" expanded="true" signature="5330:5349" ph="SELECT * FRO... users" />
-                    <marker date="1701189820048" expanded="true" signature="5462:5696" ph="SELECT u.id,... users" />
-                    <marker date="1701189820048" expanded="true" signature="7186:7217" ph="SELECT * FRO... users" />
-                    <marker date="1701189820048" expanded="true" signature="8602:8632" ph="DELETE FROM " />
-                    <marker date="1701189820048" expanded="true" signature="9908:9927" ph="SELECT * FRO... roles" />
-                    <marker date="1701189820048" expanded="true" signature="10991:11021" ph="SELECT * FRO... listeentreprises" />
-                    <marker date="1701189820048" expanded="true" signature="12571:12599" ph="SELECT * FRO... persconcernees" />
-                    <marker date="1701189820048" expanded="true" signature="13731:13759" ph="SELECT * FRO... fondjuridiques" />
-                    <marker date="1701189820048" expanded="true" signature="14855:14878" ph="SELECT * FRO... finalites" />
-                    <marker date="1701189820048" expanded="true" signature="14950:14982" ph="SELECT * FRO... listesousfinalites" />
+                    <element signature="e#14617#16576#0" expanded="false" />
+                    <marker date="1701189934418" expanded="true" signature="2147:2191" ph="SELECT * FRO... users" />
+                    <marker date="1701189934418" expanded="true" signature="3841:4002" ph="INSERT INTO users... " />
+                    <marker date="1701189934418" expanded="true" signature="5330:5349" ph="SELECT * FRO... users" />
+                    <marker date="1701189934418" expanded="true" signature="5462:5696" ph="SELECT u.id,... users" />
+                    <marker date="1701189934418" expanded="true" signature="7186:7217" ph="SELECT * FRO... users" />
+                    <marker date="1701189934418" expanded="true" signature="8602:8632" ph="DELETE FROM " />
+                    <marker date="1701189934418" expanded="true" signature="9908:9927" ph="SELECT * FRO... roles" />
+                    <marker date="1701189934418" expanded="true" signature="10991:11021" ph="SELECT * FRO... listeentreprises" />
+                    <marker date="1701189934418" expanded="true" signature="12571:12599" ph="SELECT * FRO... persconcernees" />
+                    <marker date="1701189934418" expanded="true" signature="13731:13759" ph="SELECT * FRO... fondjuridiques" />
+                    <marker date="1701189934418" expanded="true" signature="14851:14874" ph="SELECT * FRO... finalites" />
+                    <marker date="1701189934418" expanded="true" signature="14946:14978" ph="SELECT * FRO... listesousfinalites" />
                   </folding>
                 </state>
               </provider>
@@ -529,19 +529,19 @@
             <element signature="e#10737#12195#0" expanded="false" />
             <element signature="e#12319#13385#0" expanded="false" />
             <element signature="e#13489#14516#0" expanded="false" />
-            <element signature="e#14621#16580#0" expanded="false" />
-            <marker date="1701189820048" expanded="true" signature="2147:2191" ph="SELECT * FRO... users" />
-            <marker date="1701189820048" expanded="true" signature="3841:4002" ph="INSERT INTO users... " />
-            <marker date="1701189820048" expanded="true" signature="5330:5349" ph="SELECT * FRO... users" />
-            <marker date="1701189820048" expanded="true" signature="5462:5696" ph="SELECT u.id,... users" />
-            <marker date="1701189820048" expanded="true" signature="7186:7217" ph="SELECT * FRO... users" />
-            <marker date="1701189820048" expanded="true" signature="8602:8632" ph="DELETE FROM " />
-            <marker date="1701189820048" expanded="true" signature="9908:9927" ph="SELECT * FRO... roles" />
-            <marker date="1701189820048" expanded="true" signature="10991:11021" ph="SELECT * FRO... listeentreprises" />
-            <marker date="1701189820048" expanded="true" signature="12571:12599" ph="SELECT * FRO... persconcernees" />
-            <marker date="1701189820048" expanded="true" signature="13731:13759" ph="SELECT * FRO... fondjuridiques" />
-            <marker date="1701189820048" expanded="true" signature="14855:14878" ph="SELECT * FRO... finalites" />
-            <marker date="1701189820048" expanded="true" signature="14950:14982" ph="SELECT * FRO... listesousfinalites" />
+            <element signature="e#14617#16576#0" expanded="false" />
+            <marker date="1701189934418" expanded="true" signature="2147:2191" ph="SELECT * FRO... users" />
+            <marker date="1701189934418" expanded="true" signature="3841:4002" ph="INSERT INTO users... " />
+            <marker date="1701189934418" expanded="true" signature="5330:5349" ph="SELECT * FRO... users" />
+            <marker date="1701189934418" expanded="true" signature="5462:5696" ph="SELECT u.id,... users" />
+            <marker date="1701189934418" expanded="true" signature="7186:7217" ph="SELECT * FRO... users" />
+            <marker date="1701189934418" expanded="true" signature="8602:8632" ph="DELETE FROM " />
+            <marker date="1701189934418" expanded="true" signature="9908:9927" ph="SELECT * FRO... roles" />
+            <marker date="1701189934418" expanded="true" signature="10991:11021" ph="SELECT * FRO... listeentreprises" />
+            <marker date="1701189934418" expanded="true" signature="12571:12599" ph="SELECT * FRO... persconcernees" />
+            <marker date="1701189934418" expanded="true" signature="13731:13759" ph="SELECT * FRO... fondjuridiques" />
+            <marker date="1701189934418" expanded="true" signature="14851:14874" ph="SELECT * FRO... finalites" />
+            <marker date="1701189934418" expanded="true" signature="14946:14978" ph="SELECT * FRO... listesousfinalites" />
           </folding>
         </state>
       </provider>
@@ -600,19 +600,19 @@
             <element signature="e#10737#12195#0" expanded="false" />
             <element signature="e#12319#13385#0" expanded="false" />
             <element signature="e#13489#14516#0" expanded="false" />
-            <element signature="e#14621#16580#0" expanded="false" />
-            <marker date="1701189820048" expanded="true" signature="2147:2191" ph="SELECT * FRO... users" />
-            <marker date="1701189820048" expanded="true" signature="3841:4002" ph="INSERT INTO users... " />
-            <marker date="1701189820048" expanded="true" signature="5330:5349" ph="SELECT * FRO... users" />
-            <marker date="1701189820048" expanded="true" signature="5462:5696" ph="SELECT u.id,... users" />
-            <marker date="1701189820048" expanded="true" signature="7186:7217" ph="SELECT * FRO... users" />
-            <marker date="1701189820048" expanded="true" signature="8602:8632" ph="DELETE FROM " />
-            <marker date="1701189820048" expanded="true" signature="9908:9927" ph="SELECT * FRO... roles" />
-            <marker date="1701189820048" expanded="true" signature="10991:11021" ph="SELECT * FRO... listeentreprises" />
-            <marker date="1701189820048" expanded="true" signature="12571:12599" ph="SELECT * FRO... persconcernees" />
-            <marker date="1701189820048" expanded="true" signature="13731:13759" ph="SELECT * FRO... fondjuridiques" />
-            <marker date="1701189820048" expanded="true" signature="14855:14878" ph="SELECT * FRO... finalites" />
-            <marker date="1701189820048" expanded="true" signature="14950:14982" ph="SELECT * FRO... listesousfinalites" />
+            <element signature="e#14617#16576#0" expanded="false" />
+            <marker date="1701189934418" expanded="true" signature="2147:2191" ph="SELECT * FRO... users" />
+            <marker date="1701189934418" expanded="true" signature="3841:4002" ph="INSERT INTO users... " />
+            <marker date="1701189934418" expanded="true" signature="5330:5349" ph="SELECT * FRO... users" />
+            <marker date="1701189934418" expanded="true" signature="5462:5696" ph="SELECT u.id,... users" />
+            <marker date="1701189934418" expanded="true" signature="7186:7217" ph="SELECT * FRO... users" />
+            <marker date="1701189934418" expanded="true" signature="8602:8632" ph="DELETE FROM " />
+            <marker date="1701189934418" expanded="true" signature="9908:9927" ph="SELECT * FRO... roles" />
+            <marker date="1701189934418" expanded="true" signature="10991:11021" ph="SELECT * FRO... listeentreprises" />
+            <marker date="1701189934418" expanded="true" signature="12571:12599" ph="SELECT * FRO... persconcernees" />
+            <marker date="1701189934418" expanded="true" signature="13731:13759" ph="SELECT * FRO... fondjuridiques" />
+            <marker date="1701189934418" expanded="true" signature="14851:14874" ph="SELECT * FRO... finalites" />
+            <marker date="1701189934418" expanded="true" signature="14946:14978" ph="SELECT * FRO... listesousfinalites" />
           </folding>
         </state>
       </provider>
@@ -671,19 +671,19 @@
             <element signature="e#10737#12195#0" expanded="false" />
             <element signature="e#12319#13385#0" expanded="false" />
             <element signature="e#13489#14516#0" expanded="false" />
-            <element signature="e#14621#16580#0" expanded="false" />
-            <marker date="1701189820048" expanded="true" signature="2147:2191" ph="SELECT * FRO... users" />
-            <marker date="1701189820048" expanded="true" signature="3841:4002" ph="INSERT INTO users... " />
-            <marker date="1701189820048" expanded="true" signature="5330:5349" ph="SELECT * FRO... users" />
-            <marker date="1701189820048" expanded="true" signature="5462:5696" ph="SELECT u.id,... users" />
-            <marker date="1701189820048" expanded="true" signature="7186:7217" ph="SELECT * FRO... users" />
-            <marker date="1701189820048" expanded="true" signature="8602:8632" ph="DELETE FROM " />
-            <marker date="1701189820048" expanded="true" signature="9908:9927" ph="SELECT * FRO... roles" />
-            <marker date="1701189820048" expanded="true" signature="10991:11021" ph="SELECT * FRO... listeentreprises" />
-            <marker date="1701189820048" expanded="true" signature="12571:12599" ph="SELECT * FRO... persconcernees" />
-            <marker date="1701189820048" expanded="true" signature="13731:13759" ph="SELECT * FRO... fondjuridiques" />
-            <marker date="1701189820048" expanded="true" signature="14855:14878" ph="SELECT * FRO... finalites" />
-            <marker date="1701189820048" expanded="true" signature="14950:14982" ph="SELECT * FRO... listesousfinalites" />
+            <element signature="e#14617#16576#0" expanded="false" />
+            <marker date="1701189934418" expanded="true" signature="2147:2191" ph="SELECT * FRO... users" />
+            <marker date="1701189934418" expanded="true" signature="3841:4002" ph="INSERT INTO users... " />
+            <marker date="1701189934418" expanded="true" signature="5330:5349" ph="SELECT * FRO... users" />
+            <marker date="1701189934418" expanded="true" signature="5462:5696" ph="SELECT u.id,... users" />
+            <marker date="1701189934418" expanded="true" signature="7186:7217" ph="SELECT * FRO... users" />
+            <marker date="1701189934418" expanded="true" signature="8602:8632" ph="DELETE FROM " />
+            <marker date="1701189934418" expanded="true" signature="9908:9927" ph="SELECT * FRO... roles" />
+            <marker date="1701189934418" expanded="true" signature="10991:11021" ph="SELECT * FRO... listeentreprises" />
+            <marker date="1701189934418" expanded="true" signature="12571:12599" ph="SELECT * FRO... persconcernees" />
+            <marker date="1701189934418" expanded="true" signature="13731:13759" ph="SELECT * FRO... fondjuridiques" />
+            <marker date="1701189934418" expanded="true" signature="14851:14874" ph="SELECT * FRO... finalites" />
+            <marker date="1701189934418" expanded="true" signature="14946:14978" ph="SELECT * FRO... listesousfinalites" />
           </folding>
         </state>
       </provider>
@@ -742,19 +742,19 @@
             <element signature="e#10737#12195#0" expanded="false" />
             <element signature="e#12319#13385#0" expanded="false" />
             <element signature="e#13489#14516#0" expanded="false" />
-            <element signature="e#14621#16580#0" expanded="false" />
-            <marker date="1701189820048" expanded="true" signature="2147:2191" ph="SELECT * FRO... users" />
-            <marker date="1701189820048" expanded="true" signature="3841:4002" ph="INSERT INTO users... " />
-            <marker date="1701189820048" expanded="true" signature="5330:5349" ph="SELECT * FRO... users" />
-            <marker date="1701189820048" expanded="true" signature="5462:5696" ph="SELECT u.id,... users" />
-            <marker date="1701189820048" expanded="true" signature="7186:7217" ph="SELECT * FRO... users" />
-            <marker date="1701189820048" expanded="true" signature="8602:8632" ph="DELETE FROM " />
-            <marker date="1701189820048" expanded="true" signature="9908:9927" ph="SELECT * FRO... roles" />
-            <marker date="1701189820048" expanded="true" signature="10991:11021" ph="SELECT * FRO... listeentreprises" />
-            <marker date="1701189820048" expanded="true" signature="12571:12599" ph="SELECT * FRO... persconcernees" />
-            <marker date="1701189820048" expanded="true" signature="13731:13759" ph="SELECT * FRO... fondjuridiques" />
-            <marker date="1701189820048" expanded="true" signature="14855:14878" ph="SELECT * FRO... finalites" />
-            <marker date="1701189820048" expanded="true" signature="14950:14982" ph="SELECT * FRO... listesousfinalites" />
+            <element signature="e#14617#16576#0" expanded="false" />
+            <marker date="1701189934418" expanded="true" signature="2147:2191" ph="SELECT * FRO... users" />
+            <marker date="1701189934418" expanded="true" signature="3841:4002" ph="INSERT INTO users... " />
+            <marker date="1701189934418" expanded="true" signature="5330:5349" ph="SELECT * FRO... users" />
+            <marker date="1701189934418" expanded="true" signature="5462:5696" ph="SELECT u.id,... users" />
+            <marker date="1701189934418" expanded="true" signature="7186:7217" ph="SELECT * FRO... users" />
+            <marker date="1701189934418" expanded="true" signature="8602:8632" ph="DELETE FROM " />
+            <marker date="1701189934418" expanded="true" signature="9908:9927" ph="SELECT * FRO... roles" />
+            <marker date="1701189934418" expanded="true" signature="10991:11021" ph="SELECT * FRO... listeentreprises" />
+            <marker date="1701189934418" expanded="true" signature="12571:12599" ph="SELECT * FRO... persconcernees" />
+            <marker date="1701189934418" expanded="true" signature="13731:13759" ph="SELECT * FRO... fondjuridiques" />
+            <marker date="1701189934418" expanded="true" signature="14851:14874" ph="SELECT * FRO... finalites" />
+            <marker date="1701189934418" expanded="true" signature="14946:14978" ph="SELECT * FRO... listesousfinalites" />
           </folding>
         </state>
       </provider>
@@ -866,8 +866,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/backend/app.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-606">
-          <caret line="37" column="36" lean-forward="true" selection-start-line="37" selection-start-column="36" selection-end-line="37" selection-end-column="36" />
+        <state relative-caret-position="448">
+          <caret line="462" column="0" lean-forward="true" selection-start-line="462" selection-start-column="0" selection-end-line="462" selection-end-column="0" />
           <folding>
             <element signature="e#85#94#0" expanded="true" />
             <element signature="e#499#1635#0" expanded="false" />
@@ -881,19 +881,19 @@
             <element signature="e#10737#12195#0" expanded="false" />
             <element signature="e#12319#13385#0" expanded="false" />
             <element signature="e#13489#14516#0" expanded="false" />
-            <element signature="e#14621#16580#0" expanded="false" />
-            <marker date="1701189820048" expanded="true" signature="2147:2191" ph="SELECT * FRO... users" />
-            <marker date="1701189820048" expanded="true" signature="3841:4002" ph="INSERT INTO users... " />
-            <marker date="1701189820048" expanded="true" signature="5330:5349" ph="SELECT * FRO... users" />
-            <marker date="1701189820048" expanded="true" signature="5462:5696" ph="SELECT u.id,... users" />
-            <marker date="1701189820048" expanded="true" signature="7186:7217" ph="SELECT * FRO... users" />
-            <marker date="1701189820048" expanded="true" signature="8602:8632" ph="DELETE FROM " />
-            <marker date="1701189820048" expanded="true" signature="9908:9927" ph="SELECT * FRO... roles" />
-            <marker date="1701189820048" expanded="true" signature="10991:11021" ph="SELECT * FRO... listeentreprises" />
-            <marker date="1701189820048" expanded="true" signature="12571:12599" ph="SELECT * FRO... persconcernees" />
-            <marker date="1701189820048" expanded="true" signature="13731:13759" ph="SELECT * FRO... fondjuridiques" />
-            <marker date="1701189820048" expanded="true" signature="14855:14878" ph="SELECT * FRO... finalites" />
-            <marker date="1701189820048" expanded="true" signature="14950:14982" ph="SELECT * FRO... listesousfinalites" />
+            <element signature="e#14617#16576#0" expanded="false" />
+            <marker date="1701189934418" expanded="true" signature="2147:2191" ph="SELECT * FRO... users" />
+            <marker date="1701189934418" expanded="true" signature="3841:4002" ph="INSERT INTO users... " />
+            <marker date="1701189934418" expanded="true" signature="5330:5349" ph="SELECT * FRO... users" />
+            <marker date="1701189934418" expanded="true" signature="5462:5696" ph="SELECT u.id,... users" />
+            <marker date="1701189934418" expanded="true" signature="7186:7217" ph="SELECT * FRO... users" />
+            <marker date="1701189934418" expanded="true" signature="8602:8632" ph="DELETE FROM " />
+            <marker date="1701189934418" expanded="true" signature="9908:9927" ph="SELECT * FRO... roles" />
+            <marker date="1701189934418" expanded="true" signature="10991:11021" ph="SELECT * FRO... listeentreprises" />
+            <marker date="1701189934418" expanded="true" signature="12571:12599" ph="SELECT * FRO... persconcernees" />
+            <marker date="1701189934418" expanded="true" signature="13731:13759" ph="SELECT * FRO... fondjuridiques" />
+            <marker date="1701189934418" expanded="true" signature="14851:14874" ph="SELECT * FRO... finalites" />
+            <marker date="1701189934418" expanded="true" signature="14946:14978" ph="SELECT * FRO... listesousfinalites" />
           </folding>
         </state>
       </provider>
