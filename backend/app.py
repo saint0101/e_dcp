@@ -527,7 +527,6 @@ def get_all_finalite():
         return json.dumps({'error': str(e)})
 
 
-
 # app.run()
 port = int(os.environ.get('PORT', 5500))
 if __name__ == '__main__':
