@@ -19,7 +19,7 @@ mysql = MySQL
 # PASSWORD = app.config['MYSQL_DATABASE_PASSWORD'] = 'e.dcp@2023#'
 # DB_NAME = app.config['MYSQL_DATABASE_DB'] = 'edcp_db'
 # RDS_HOST = app.config['MYSQL_DATABASE_HOST'] = 'mariadb'
-# RDS_PORT = app.config['MYSQL_DATABASE_PORT'] = 3356
+# RDS_PORT = app.config['MYSQL_DATABASE_PORT'] = 3306
 
 # parametre de connexion Mariadb db a la base de donnée local
 USER_NAME = app.config['MYSQL_DATABASE_USER'] = 'root'

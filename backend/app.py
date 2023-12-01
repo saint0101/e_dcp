@@ -3,15 +3,41 @@
 
 # import the necessary packages
 import os
+import flask
 import json
 import mariadb
-from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required
+from flask_jwt_extended import JWTManager, create_access_token, get_jwt_identity, jwt_required
+import secrets
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask import jsonify, request
 
-from backend.configs import config_local, app
-from backend.utils import format_telephone_number
 
+# creation de l'application
+app = flask.Flask(__name__)
+app.config["DEBUG"] = True
+
+# config bd
+"""
+Config DB
+"""
+config_local = {
+    'host': 'mariadb',
+    'port': 3306,
+    'user': 'Uroot_edcp',
+    'password': 'e.dcp@2023#',
+    'database': 'edcp_db'
+}
+
+# definir unne clé secret et cela dans la configuration "jose" génerer une clé aleatoire d'une longeur de 128 bits
+app.config['JWT_SECRET_KEY'] = str( secrets.SystemRandom().getrandbits(128))
+jwt = JWTManager(app=app)
+
+# Function to format telephone number
+def format_telephone_number(telephone):
+    if telephone and len(telephone) == 10:  # Assuming telephone is a 10-digit number
+        return "{}-{}-{}-{}-{}".format(telephone[:2], telephone[2:4], telephone[4:6], telephone[6:8], telephone[8:])
+    else:
+        return telephone
 @app.route('/')
 @app.route('/edcp/api/v0/description')
 def description_edcp_api():
