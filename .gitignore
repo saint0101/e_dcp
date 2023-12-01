@@ -1,6 +1,0 @@
-mariadb_data/*
-mariadb_data/
-backend/configs.py
-backend/utils.py
-backend/docgit/
-docker-compose.yml
