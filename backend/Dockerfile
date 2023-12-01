@@ -24,3 +24,6 @@ EXPOSE 5000
 
 # Exécuter l'application
 CMD ["flask", "run", "--host", "0.0.0.0", "--port", "5000"]
+
+# Supprimer le dépôt cloné à la fin du déploiement
+RUN rm -rf /app
