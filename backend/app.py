@@ -1,4 +1,3 @@
-#! /usr/bin/env python3.7
 # -*- encoding: utf-8 -*-
 
 # import the necessary packages
@@ -21,11 +20,11 @@ app.config["DEBUG"] = True
 Config DB
 """
 config_local = {
-    'host': 'mariadb',
+    'host': '127.0.0.1',
     'port': 3306,
-    'user': 'Uroot_edcp',
-    'password': 'e.dcp@2023#',
-    'database': 'edcp_db'
+    'user': 'root',
+    'password': 'root',
+    'database': 'edcp-db'
 }
 
 # definir unne clé secret et cela dans la configuration "jose" génerer une clé aleatoire d'une longeur de 128 bits
@@ -38,7 +37,23 @@ def format_telephone_number(telephone):
         return "{}-{}-{}-{}-{}".format(telephone[:2], telephone[2:4], telephone[4:6], telephone[6:8], telephone[8:])
     else:
         return telephone
-@app.route('/')
+
+# TO DELETE
+@app.route('/edcp/api/v0/testdb')
+def testdb():
+    conn = mariadb.connect(**config_local)
+    
+    cursor = conn.cursor()
+
+    # execution de la requête SQL
+    cursor.execute("SELECT * FROM users;")
+    users = cursor.fetchall()
+
+    # Fermer la connexion à la base de données
+    conn.close()
+    
+    return jsonify(users), 200
+
 @app.route('/edcp/api/v0/description')
 def description_edcp_api():
     """
@@ -65,6 +80,7 @@ def description_edcp_api():
 
 
 # Route d'authentification
+
 @app.route('/edcp/api/v0/login', methods=['POST'])
 def login():
     """ Geberer le token evc le login et mot de passe """
@@ -76,6 +92,7 @@ def login():
 
     # connexion a la base de données
     conn = mariadb.connect(**config_local)
+    
     cursor = conn.cursor()
 
     # execution de la requête SQL

@@ -63,3 +63,17 @@ Ouvrez votre navigateur et accédez à l'URL
 [http://127.0.0.1:5500/](http://127.0.0.1:5000/)
  ou
 [http://localhost:5500/](http://localhost:5000/)
+
+## Gestion des erreurs d'installation
+### Erreur lors de l'installation des modules (connecteur MariaDb absent)
+En cas d'erreur `OSError: mariadb_config not found.`, installer le connecteur mariadb avec les commandes :
+- pour Mac OSX :
+> brew install mariadb-connector-c 
+- pour Linux :
+>  sudo apt-get update -y
+
+>  sudo apt-get install -y libmariadb-dev
+
+
+
+
