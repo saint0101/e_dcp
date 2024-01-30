@@ -9,11 +9,13 @@ from flask_jwt_extended import JWTManager, create_access_token, get_jwt_identity
 import secrets
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask import jsonify, request
+from flask_cors import CORS
 
 
 # creation de l'application
 app = flask.Flask(__name__)
 app.config["DEBUG"] = True
+
 
 # config bd
 """
@@ -37,6 +39,17 @@ def format_telephone_number(telephone):
         return "{}-{}-{}-{}-{}".format(telephone[:2], telephone[2:4], telephone[4:6], telephone[6:8], telephone[8:])
     else:
         return telephone
+
+
+# Function for format responses
+def format_response(status, msg, data):
+    return {
+        "status_code": status,
+        "message": msg,
+        "data": data
+    }
+
+CORS(app, origins=["http://localhost:*"])
 
 # TO DELETE
 @app.route('/edcp/api/v0/testdb')
@@ -80,9 +93,62 @@ def description_edcp_api():
 
 
 # Route d'authentification
+@app.route('/edcp/api/v0/login-email', methods=['POST'])
+def login_by_email():
+    """ Génerer le token evc le login et mot de passe """
+    if not request.is_json:
+        # return jsonify({"msg": "La demande n'est pas au format JSON"}), 400
+        return format_response(400, "Format de requête JSON invalide", "");
 
-@app.route('/edcp/api/v0/login', methods=['POST'])
-def login():
+    email = request.json.get('email', None)
+    password = request.json.get('passwd', None)
+
+    # connexion a la base de données
+    conn = mariadb.connect(**config_local)
+    
+    cursor = conn.cursor()
+
+    # execution de la requête SQL
+    cursor.execute("SELECT * FROM users WHERE email = %s LIMIT 1;", (email, ))
+    user = cursor.fetchone()
+
+    # Fermer la connexion à la base de données
+    conn.close()
+
+    if user and check_password_hash(user[2], password):
+        access_token = create_access_token(identity=user[0])
+
+        # Formatter le numéro de téléphone
+        formatted_phone = "{}-{}-{}-{}-{}".format(user[10][:2], user[10][2:4], user[10][4:6], user[10][6:8],
+                                                  user[10][8:])
+
+        # Retourner le token et les informations de l'utilisateur
+        data = {
+            "access_token": access_token,
+            "user": {
+                "id": user[0],
+                "login": user[1],
+                "role_id": user[3],
+                "avatar": user[4],
+                # "createdAt": user[5].strftime("%y-%m-%d"),
+                "createdAt": user[5],
+                "nom": user[6],
+                "prenom": user[7],
+                "organisation": user[8],
+                "email": user[9],
+                "telephone": formatted_phone,
+                "fonction": user[11],   
+            }
+        }
+        # return jsonify(data), 200
+        return format_response(200, "Connexion réussie.", data)
+    else:
+        # return jsonify({"msg": "Mauvais identifiant ou mot de passe"}), 401
+        return format_response(401, "Identifiant ou mot de passe incorrect.", "")
+
+
+@app.route('/edcp/api/v0/login-username', methods=['POST'])
+def login_by_username():
     """ Geberer le token evc le login et mot de passe """
     if not request.is_json:
         return jsonify({"msg": "La demande n'est pas au format JSON"}), 400
@@ -145,9 +211,9 @@ def create_user():
             with conn.cursor() as cursor:
                 # Exécution de la requête SQL pour insérer un nouvel utilisateur
                 cursor.execute(
-                    "INSERT INTO users (login, passwd, role_id, avatar, nom, prenoms, Organisation, email, telephone, fonction, consentement) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);",
+                    "INSERT INTO users (login, passwd, role_id, avatar, nom, prenoms, organisation, email, telephone, fonction, consentement) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);",
                     (user_data['login'], generate_password_hash(user_data['passwd'], method='sha256'), user_data['role_id'], user_data['avatar'], user_data['nom'], user_data['prenoms'],
-                     user_data['Organisation'], user_data['email'], user_data['telephone'], user_data['fonction'], user_data['consentement'])
+                     user_data['organisation'], user_data['email'], user_data['telephone'], user_data['fonction'], user_data['consentement'])
                 )
                 # Confirmer les modifications dans la base de données
                 conn.commit()
@@ -155,14 +221,15 @@ def create_user():
         # Création de la réponse JSON
         response_data = {
             "status_code": 201,  # Code 201 pour création réussie
-            "message": "Utilisateur créé avec succès"
+            "message": "Inscription effectuée avec succès",
+            "data": "OK"
         }
         return jsonify(response_data), 201
     except mariadb.Error as e:
         # En cas d'erreur, retourner une réponse d'erreur
         error_data = {
             "status_code": 500,
-            "error": str(e)
+            "message": str(e)
         }
         return jsonify(error_data)
     except Exception as e:
