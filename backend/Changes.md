@@ -1,4 +1,4 @@
-# Changements apportés à l'API/BD
+ # Changements apportés à l'API/BD
 
 
 1. **Corrections des noms des colonnes de la table users et des champs des requêtes JSON**
@@ -23,4 +23,8 @@ CORS(app, origins=["http://localhost:*"])
   "data": Object // corps de la réponse
 }
 ```
-
+6. **Modifications de noms de colonnes des tables typeclient, pays, ville etc.**
+Utilisation de "label" au lieu de "pays", "ville" etc.
+7. **Fixation de la clé de signature des access-token JWT**
+Utilisation d'une clé fixe 'chelton' pour les tests afin d'éviter le changement des signatures des access-token à chaque rechargement du script du serveur.
+!! A modifier

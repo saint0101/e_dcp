@@ -11,10 +11,22 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask import jsonify, request
 from flask_cors import CORS
 
+# from apiconfig import EndPoints
+
+# Préfixe de l'URL de l'API
+api_prefix = "/edcp/api/v0/"
+#ENDPOINTS = EndPoints()
+
+# Endpoints de l'API
+class EndPoints():
+  USERS = api_prefix + "users"
+  ORGANISATION = api_prefix + "organisations"
+  OPTIONS_ENREG = api_prefix + "options-enregistrement"
 
 # creation de l'application
 app = flask.Flask(__name__)
 app.config["DEBUG"] = True
+
 
 
 # config bd
@@ -30,7 +42,11 @@ config_local = {
 }
 
 # definir unne clé secret et cela dans la configuration "jose" génerer une clé aleatoire d'une longeur de 128 bits
-app.config['JWT_SECRET_KEY'] = str( secrets.SystemRandom().getrandbits(128))
+#app.config["JWT_TOKEN_LOCATION"] = ["headers"] # specifying the location of JWT 
+app.config['JWT_TOKEN_LOCATION'] = ['headers', 'query_string']
+# app.config['JWT_SECRET_KEY'] = str( secrets.SystemRandom().getrandbits(128))
+# !!! TO MODIFY : utilisé à des fins de test pour éviter le changement de la clé de signature des access-token
+app.config['JWT_SECRET_KEY'] = "chelton" 
 jwt = JWTManager(app=app)
 
 # Function to format telephone number
@@ -51,7 +67,7 @@ def format_response(status, msg, data):
 
 CORS(app, origins=["http://localhost:*"])
 
-# TO DELETE
+############### TO DELETE
 @app.route('/edcp/api/v0/testdb')
 def testdb():
     conn = mariadb.connect(**config_local)
@@ -66,6 +82,16 @@ def testdb():
     conn.close()
     
     return jsonify(users), 200
+
+# Exemple de route protégée avec JWT
+@app.route('/edcp/api/v0/protected', methods=['GET'])
+@jwt_required()
+def protected():
+    # Récupérer l'identité de l'utilisateur à partir du jeton
+    current_user = get_jwt_identity()
+    return jsonify(logged_in_as=current_user), 200
+
+#####################
 
 @app.route('/edcp/api/v0/description')
 def description_edcp_api():
@@ -92,10 +118,14 @@ def description_edcp_api():
     return jsonify(ds_edcp_api), 200
 
 
-# Route d'authentification
+# Route d'authentification (login)
 @app.route('/edcp/api/v0/login-email', methods=['POST'])
 def login_by_email():
-    """ Génerer le token evc le login et mot de passe """
+    """Fonction de connexion par email et mot de passe
+
+    @param: objet JSON de type {email: "", passwd: ""}
+    @returns: données de connexion de type {access_token: "", user: Object}, lui-même encapsulé dans le format de réponse par défaut
+    """
     if not request.is_json:
         # return jsonify({"msg": "La demande n'est pas au format JSON"}), 400
         return format_response(400, "Format de requête JSON invalide", "");
@@ -224,7 +254,7 @@ def create_user():
             "message": "Inscription effectuée avec succès",
             "data": "OK"
         }
-        return jsonify(response_data), 201
+        return jsonify(response_data)
     except mariadb.Error as e:
         # En cas d'erreur, retourner une réponse d'erreur
         error_data = {
@@ -236,6 +266,7 @@ def create_user():
         return json.dumps({'error': str(e)})
 
 
+# Route pour obtenir la liste des utilisateurs
 @app.route('/edcp/api/v0/users', methods=['GET'])
 @jwt_required()
 def get_all_users():
@@ -295,6 +326,7 @@ def get_all_users():
         return json.dumps({'error': str(e)})
 
 
+# Route pour obtenir un utilisateur par son Id
 @app.route("/edcp/api/v0/users/<int:user_id>", methods=['GET'])
 @jwt_required()
 def get_user_by_id(user_id):
@@ -376,58 +408,81 @@ def delete_user(user_id):
         return json.dumps({'error': str(e)})
 
 
-# Exemple de route protégée avec JWT
-@app.route('/edcp/api/v0/protected', methods=['GET'])
-@jwt_required()
-def protected():
-    # Récupérer l'identité de l'utilisateur à partir du jeton
-    current_user = get_jwt_identity()
-    return jsonify(logged_in_as=current_user), 200
+####################### ENREGISTREMENTS & ORGANISATIONS ###################
 
-
-@app.route('/edcp/api/v0/roles', methods=['GET'])
+@app.route(EndPoints.OPTIONS_ENREG, methods=['GET'])
 @jwt_required()
-def get_all_roles():
-    """
-    lister les rôles disponible
-    :return:
-    """
+def get_options_enregistrement():
+    # return jsonify(dict(request.headers))
     try:
-        # connexion a la base de données
-        conn =  mariadb.connect(**config_local)
+        conn = mariadb.connect(**config_local)
         cursor = conn.cursor()
+        cursor.execute("SELECT * FROM typeclients ;")
+        rows_data_type = cursor.fetchall()
+        
+        cursor.execute("SELECT * FROM secteurs ;")
+        rows_data_secteurs = cursor.fetchall()
 
-        # execution de la requête SQL
-        cursor.execute("SELECT * FROM roles ;")
-        rows_data = cursor.fetchall()
+        cursor.execute("SELECT * FROM pays ;")
+        rows_data_pays = cursor.fetchall()
 
-        # Fermeture des ressources de la base de données
         cursor.close()
         conn.close()
 
-        # Création de la réponse JSON
+        data_type = [{
+            "id": row[0],
+            "label": row[1],
+            "description": row[2],
+            "sensible": row[3],
+            "ordre": row[4],
+        } for row in rows_data_type]
+
+        data_pays = [{
+            "id": row[0],
+            "label": row[1],
+        } for row in rows_data_pays]
+
+        data_secteurs = [{
+            "id": row[0],
+            "label": row[1],
+            "sensible": row[2],
+            "ordre": row[3],
+        } for row in rows_data_secteurs]
+
         response_data = {
-            "status_code": 200,
-            "data": [{
-                "id": row[0],
-                "role": row[1]
+            "typesClient": data_type,
+            "pays": data_pays,
+            "secteursActivite": data_secteurs
         }
-        for row in rows_data]
-        }
-        return jsonify(response_data)
 
-    except mariadb.Error as e:
-        # En cas d'erreur, retourner une réponse d'erreur
-        error_data = {
-            "status_code": 500,
-            "error": str(e)
-        }
-        return jsonify(error_data)
-
-    except Exception as e:
-        return json.dumps({'error': str(e)})
+        return format_response(200, "Options chargées", response_data)
+    
+    except mariadb.Error as err :
+        return format_response(500, str(e), "Erreur mariadb")
+    
+    except Exception as e :
+        return format_response(500, str(e), "Erreur serveur")
 
 
+# Route : créer une nouvelle organisation   
+@app.route(EndPoints.ORGANISATION, methods=['POST'])
+# @app.route('/edcp/api/v0/organisations/', methods=['POST'])
+@jwt_required()
+def create_organisation():
+    try:
+        data = request.json
+        with mariadb.connect(**config_local) as conn :
+            with conn.cursor() as cursor :
+                cursor.execute()
+    
+    except mariadb.Error as err :
+        return format_response(500, str(e), "Erreur mariadb")
+    
+    except Exception as e :
+        return format_response(500, str(e), "Erreur serveur")
+
+
+# Route liste des organisations
 @app.route('/edcp/api/v0/entreprises', methods=['GET'])
 @jwt_required()
 def get_all_entreprises():
@@ -481,6 +536,52 @@ def get_all_entreprises():
 
     except Exception as e:
         return json.dumps({'error': str(e)})
+
+
+
+# Route liste des rôles
+@app.route('/edcp/api/v0/roles', methods=['GET'])
+@jwt_required()
+def get_all_roles():
+    """
+    lister les rôles disponible
+    :return:
+    """
+    try:
+        # connexion a la base de données
+        conn =  mariadb.connect(**config_local)
+        cursor = conn.cursor()
+
+        # execution de la requête SQL
+        cursor.execute("SELECT * FROM roles ;")
+        rows_data = cursor.fetchall()
+
+        # Fermeture des ressources de la base de données
+        cursor.close()
+        conn.close()
+
+        # Création de la réponse JSON
+        response_data = {
+            "status_code": 200,
+            "data": [{
+                "id": row[0],
+                "role": row[1]
+        }
+        for row in rows_data]
+        }
+        return jsonify(response_data)
+
+    except mariadb.Error as e:
+        # En cas d'erreur, retourner une réponse d'erreur
+        error_data = {
+            "status_code": 500,
+            "error": str(e)
+        }
+        return jsonify(error_data)
+
+    except Exception as e:
+        return json.dumps({'error': str(e)})
+
 
 
 @app.route('/edcp/api/v0/personnes-concernees', methods=['GET'])
