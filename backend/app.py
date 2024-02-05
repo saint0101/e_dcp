@@ -20,7 +20,7 @@ api_prefix = "/edcp/api/v0/"
 # Endpoints de l'API
 class EndPoints():
   USERS = api_prefix + "users"
-  ORGANISATION = api_prefix + "organisations"
+  ORGANISATIONS = api_prefix + "organisations"
   OPTIONS_ENREG = api_prefix + "options-enregistrement"
 
 # creation de l'application
@@ -465,18 +465,23 @@ def get_options_enregistrement():
 
 
 # Route : créer une nouvelle organisation   
-@app.route(EndPoints.ORGANISATION, methods=['POST'])
+@app.route(EndPoints.ORGANISATIONS, methods=['POST'])
 # @app.route('/edcp/api/v0/organisations/', methods=['POST'])
 @jwt_required()
 def create_organisation():
     try:
         data = request.json
+        # return data, 200
         with mariadb.connect(**config_local) as conn :
             with conn.cursor() as cursor :
-                cursor.execute()
-    
+                query = f"INSERT INTO registrations (user_id, typeclient_id, raisonsociale, representant, rccm, secteur_id, secteur_description, presentation, telephone, email_contact, site_web, pays_id, ville, adresse_geo, adresse_bp, gmaps_link, effectif) VALUES ({data['user_id']}, {data['typeclient_id']}, '{data['raisonsociale']}', '{data['representant']}', '{data['rccm']}', {data['secteur_id']}, '{data['secteur_description']}', '{data['presentation']}', '{data['telephone']}', '{data['email_contact']}', '{data['site_web']}', {data['pays_id']}, '{data['ville']}', '{data['adresse_geo']}', '{data['adresse_bp']}', '{data['gmaps_link']}', {data['effectif']});"
+                #return query, 200
+                cursor.execute(query)
+                conn.commit()
+        return format_response(201, "Enregistrement effectué", None)
+            
     except mariadb.Error as err :
-        return format_response(500, str(e), "Erreur mariadb")
+        return format_response(500, str(err), "Erreur mariadb")
     
     except Exception as e :
         return format_response(500, str(e), "Erreur serveur")
