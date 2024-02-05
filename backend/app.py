@@ -1,6 +1,7 @@
 # -*- encoding: utf-8 -*-
 
 # import the necessary packages
+from datetime import datetime, timedelta
 import os
 import flask
 import json
@@ -146,7 +147,10 @@ def login_by_email():
     conn.close()
 
     if user and check_password_hash(user[2], password):
-        access_token = create_access_token(identity=user[0])
+        # TO DELETE : !! 
+        expires = timedelta(days=30)
+        
+        access_token = create_access_token(identity=user[0], expires_delta=expires)
 
         # Formatter le numéro de téléphone
         formatted_phone = "{}-{}-{}-{}-{}".format(user[10][:2], user[10][2:4], user[10][4:6], user[10][6:8],
@@ -488,11 +492,11 @@ def create_organisation():
 
 
 # Route liste des organisations
-@app.route('/edcp/api/v0/entreprises', methods=['GET'])
+@app.route(EndPoints.ORGANISATIONS, methods=['GET'])
 @jwt_required()
-def get_all_entreprises():
+def get_all_organisations():
     """
-    lister les Entreprises disponible
+    lister les Organisations disponible
     :return:
     """
     try:
@@ -501,7 +505,28 @@ def get_all_entreprises():
         cursor = conn.cursor()
 
         # execution de la requête SQL
-        cursor.execute("SELECT * FROM listeentreprises ;")
+        cursor.execute('''
+            SELECT r.*, 
+            CONCAT(u.nom, ' ', u.prenoms) as user_name, 
+            t.label as typeclients_label, 
+            s.label as secteurs_label, 
+            p.label as pays_label
+
+            FROM registrations as r 
+
+            INNER JOIN users as u 
+            ON r.user_id = u.id
+
+            INNER JOIN typeclients as t
+            ON r.typeclient_id = t.id
+
+            INNER JOIN secteurs as s
+            ON r.secteur_id = s.id
+
+            INNER JOIN pays as p
+            ON r.pays_id = p.id;
+        ''')
+        
         rows_data = cursor.fetchall()
 
         # Fermeture des ressources de la base de données
@@ -509,27 +534,35 @@ def get_all_entreprises():
         conn.close()
 
         # Création de la réponse JSON
-        response_data = {
-            "status_code": 200,
-            "data": [{
-                "id": row[0],
-                "typeClient": row[1],
-                "nomRaisonSociale": row[2],
-                "presentation": row[3],
-                "numRccm": row[4],
-                "domaine": row[5],
-                "telephone": row[6],
-                "contactEmail": row[7],
-                "pays": row[8],
-                "ville": row[9],
-                "localisation": row[10],
-                "gmapsLink": row[11],
-                "cateDonnees": row[12],
-                "effectif": row[13]
+        data = [{
+            "id": row[0],
+            "userId": row[1],
+            "createdAt": f"{row[2]:%d-%m-%Y}",	
+            "typeClientId": row[3],
+            "nomRaisonSociale": row[4],
+            "representantLegal": row[5],
+            "numRccm": row[6],
+            "secteurDescription": row[7],
+            "secteurId": row[8],
+            "presentation": row[9],	
+            "telephone": row[10],	
+            "contactEmail": row[11],	
+            "siteWeb": row[12],
+            "paysId": row[13],	
+            "ville"	: row[14],
+            "localisation": row[15],	
+            "adresseBP": row[16],	
+            "gmapsLink": row[17],	
+            "cateDonnees": "",
+            "effectif": row[18],	
+            "userName": row[19],	
+            "typeClientLabel": row[20],	
+            "secteurLabel": row[21],	
+            "paysLabel": row[22],
             }
-                for row in rows_data]
-        }
-        return jsonify(response_data)
+            for row in rows_data]
+        
+        return format_response(200, "Liste des organisations récupérée", data)
 
     except mariadb.Error as e:
         # En cas d'erreur, retourner une réponse d'erreur
@@ -542,6 +575,87 @@ def get_all_entreprises():
     except Exception as e:
         return json.dumps({'error': str(e)})
 
+
+@app.route(EndPoints.ORGANISATIONS+'/<int:org_id>', methods=['GET'])
+@jwt_required()
+def get_org_by_id(org_id):
+
+    try:
+        # connexion a la base de données
+        conn = mariadb.connect(**config_local)
+        cursor = conn.cursor()
+
+        # execution de la requête SQL
+        cursor.execute(f'''
+            SELECT r.*, 
+            CONCAT(u.nom, ' ', u.prenoms) as user_name, 
+            t.label as typeclients_label, 
+            s.label as secteurs_label, 
+            p.label as pays_label
+
+            FROM registrations as r 
+
+            INNER JOIN users as u 
+            ON r.user_id = u.id
+
+            INNER JOIN typeclients as t
+            ON r.typeclient_id = t.id
+
+            INNER JOIN secteurs as s
+            ON r.secteur_id = s.id
+
+            INNER JOIN pays as p
+            ON r.pays_id = p.id
+                       
+            WHERE r.id={org_id};
+        ''')
+        
+        row = cursor.fetchone()
+
+        # Fermeture des ressources de la base de données
+        cursor.close()
+        conn.close()
+
+        # Création de la réponse JSON
+        data = {
+            "id": row[0],
+            "userId": row[1],
+            "createdAt": f"{row[2]:%d-%m-%Y}",	
+            "typeClientId": row[3],
+            "nomRaisonSociale": row[4],
+            "representantLegal": row[5],
+            "numRccm": row[6],
+            "secteurDescription": row[7],
+            "secteurId": row[8],
+            "presentation": row[9],	
+            "telephone": row[10],	
+            "contactEmail": row[11],	
+            "siteWeb": row[12],
+            "paysId": row[13],	
+            "ville"	: row[14],
+            "localisation": row[15],	
+            "adresseBP": row[16],	
+            "gmapsLink": row[17],	
+            "cateDonnees": "",
+            "effectif": row[18],	
+            "userName": row[19],	
+            "typeClientLabel": row[20],	
+            "secteurLabel": row[21],	
+            "paysLabel": row[22],
+            }
+        
+        return format_response(200, "Détails de l'orgaisation OK", data)
+
+    except mariadb.Error as e:
+        # En cas d'erreur, retourner une réponse d'erreur
+        error_data = {
+            "status_code": 500,
+            "error": str(e)
+        }
+        return jsonify(error_data)
+
+    except Exception as e:
+        return json.dumps({'error': str(e)})
 
 
 # Route liste des rôles
